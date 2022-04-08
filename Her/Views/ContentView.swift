@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SFSafeSymbols
 
 struct ContentView: View {
     @State var input: String = ""
@@ -13,20 +14,13 @@ struct ContentView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Input")
-                .foregroundColor(.accentColor)
-                .font(.system(.headline, design: .monospaced))
-            TextEditor(text: $input)
-                .font(.system(.body, design: .monospaced))
-                .disableAutocorrection(true)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.accentColor, lineWidth: 1)
-                )
-            
-            
+            HerTextView(label: "Input", color: .accentColor, text: $input)
             Spacer()
-            TextEditor(text: $output)
+            HerTextView(label: "Output", color: Constants.Colors.secondary, text: $output)
+            // --
+            CommandView()
+                .padding()
+            // --
         }
         .sheet(isPresented: .constant(false)) {
             NavigationView {
@@ -37,8 +31,61 @@ struct ContentView: View {
     }
 }
 
+struct CommandView: View {
+    var body: some View {
+        HStack {
+            Button {
+                // Process
+            } label: {
+                HStack {
+                    Image(systemSymbol: ._42CircleFill)
+                    Text("Process Input")
+                        .font(.system(.body, design: .monospaced))
+                }
+            }
+            Spacer()
+            Button {
+                // Settings
+            } label: {
+                Image(systemSymbol: .gearshapeFill)
+            }
+            
+        }
+    }
+}
+
+struct HerTextView: View {
+    var label: String
+    var color: Color
+    
+    @Binding var text: String
+    
+    var body: some View {
+        HStack {
+            Text(label)
+                .foregroundColor(color)
+                .font(.system(.headline, design: .monospaced))
+            Spacer()
+            Button {
+                text = ""
+            } label: {
+                Image(systemSymbol: .xmarkCircleFill)
+                    .foregroundColor(color)
+            }
+        }
+        TextEditor(text: $text)
+            .font(.system(.body, design: .monospaced))
+            .disableAutocorrection(true)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(color, lineWidth: 1)
+            )
+    }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }

@@ -9,6 +9,9 @@ import Foundation
 #if canImport(UIKit)
     import UIKit
 #endif
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
 
 // swiftlint:disable line_length
 enum Constants {
@@ -21,6 +24,10 @@ enum Constants {
     }
 
     enum Feature {
+    }
+    
+    class Colors {
+        static let secondary = Color("SecondaryColor")
     }
 
     /// Is the current device running macOS or is it an iPad
