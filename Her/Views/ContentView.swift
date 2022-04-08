@@ -57,6 +57,7 @@ struct ContentView: View {
             VStack {
                 HerTextView(label: "Response", color: Constants.Colors.secondary, text: $output, isUIEnabled: $isUIEnabled)
                 Button {
+                    UIApplication.shared.endEditing()
                     isShowingResponseAsSheet = false
                 } label: {
                     Text("Done")
@@ -171,6 +172,7 @@ struct CommandView: View {
             }
             Spacer()
             Button {
+                UIApplication.shared.endEditing()
                 isShowingBottomSheet = true
             } label: {
                 Image(systemSymbol: .gearshapeFill)
@@ -180,6 +182,7 @@ struct CommandView: View {
     }
     
     func process() {
+        UIApplication.shared.endEditing()
         herHelper.callTask {
             self.isUIEnabled = false
             self.output = "Thinking..."
@@ -208,6 +211,7 @@ struct HerTextView: View {
                 .font(.system(.headline, design: .monospaced))
             Spacer()
             Button {
+                UIApplication.shared.endEditing()
                 ClipboardHelper.set(text: text)
             } label: {
                 HStack {
@@ -216,6 +220,7 @@ struct HerTextView: View {
                 }
             }
             Button {
+                UIApplication.shared.endEditing()
                 text = ""
             } label: {
                 Image(systemSymbol: .xmarkCircleFill)

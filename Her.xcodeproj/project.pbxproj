@@ -31,6 +31,7 @@
 		52DA54FE27FFE8A9000E6B41 /* OpenAIAPIPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54FD27FFE8A9000E6B41 /* OpenAIAPIPayload.swift */; };
 		52DA550027FFEB05000E6B41 /* HerPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54FF27FFEB05000E6B41 /* HerPreset.swift */; };
 		52DA550227FFF3C6000E6B41 /* OpenAIAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA550127FFF3C6000E6B41 /* OpenAIAPIResponse.swift */; };
+		52DA55052800010F000E6B41 /* UIApplication+endEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA55042800010F000E6B41 /* UIApplication+endEditing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		52DA54FF27FFEB05000E6B41 /* HerPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerPreset.swift; sourceTree = "<group>"; };
 		52DA550127FFF3C6000E6B41 /* OpenAIAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAPIResponse.swift; sourceTree = "<group>"; };
 		52DA550327FFFFD3000E6B41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		52DA55042800010F000E6B41 /* UIApplication+endEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+endEditing.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				52DA54C927FFACFA000E6B41 /* Collections+ifExistsAt.swift */,
+				52DA55042800010F000E6B41 /* UIApplication+endEditing.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52DA550027FFEB05000E6B41 /* HerPreset.swift in Sources */,
+				52DA55052800010F000E6B41 /* UIApplication+endEditing.swift in Sources */,
 				52DA54F927FFDBB2000E6B41 /* ContentLevel.swift in Sources */,
 				52DA54CC27FFAD25000E6B41 /* ClipboardHelper.swift in Sources */,
 				52DA54EA27FFC014000E6B41 /* HerHelper.swift in Sources */,
