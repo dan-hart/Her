@@ -17,7 +17,7 @@ struct SupportThisAppView: View {
             Text("Support this project")
                 .font(.system(.title, design: .monospaced))
                 .padding(.bottom)
-            Text("\(Constants.appName) will always be free and open-source.")
+            Text("'\(Constants.appName)' will always be free and open-source.")
                 .font(.system(.headline, design: .monospaced))
                 .padding(.bottom)
             Text("If you have found this app useful, please consider:")
@@ -25,7 +25,7 @@ struct SupportThisAppView: View {
             Button {
                 WebLauncher.go(to: URL(string: Constants.URL.repositoryOnGitHub.rawValue))
             } label: {
-                Text("Contributing on Github ")
+                Text("Contributing on Github")
             }
             .padding()
             Text("or")

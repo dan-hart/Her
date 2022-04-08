@@ -18,9 +18,9 @@
 		52DA54D427FFAFD7000E6B41 /* SupportThisAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54D327FFAFD7000E6B41 /* SupportThisAppView.swift */; };
 		52DA54D627FFAFE5000E6B41 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54D527FFAFE5000E6B41 /* Constants.swift */; };
 		52DA54D927FFB402000E6B41 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54D827FFB402000E6B41 /* SFSafeSymbols */; };
-		52DA54DC27FFB418000E6B41 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54DB27FFB418000E6B41 /* KeychainAccess */; };
 		52DA54DF27FFB44D000E6B41 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54DE27FFB44D000E6B41 /* BottomSheet */; };
 		52DA54E227FFB481000E6B41 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54E127FFB481000E6B41 /* OpenAI */; };
+		52DA54E827FFB94E000E6B41 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54E727FFB94E000E6B41 /* KeychainAccess */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52DA54DC27FFB418000E6B41 /* KeychainAccess in Frameworks */,
+				52DA54E827FFB94E000E6B41 /* KeychainAccess in Frameworks */,
 				52DA54DF27FFB44D000E6B41 /* BottomSheet in Frameworks */,
 				52DA54E227FFB481000E6B41 /* OpenAI in Frameworks */,
 				52DA54D927FFB402000E6B41 /* SFSafeSymbols in Frameworks */,
@@ -162,9 +162,9 @@
 			name = Her;
 			packageProductDependencies = (
 				52DA54D827FFB402000E6B41 /* SFSafeSymbols */,
-				52DA54DB27FFB418000E6B41 /* KeychainAccess */,
 				52DA54DE27FFB44D000E6B41 /* BottomSheet */,
 				52DA54E127FFB481000E6B41 /* OpenAI */,
+				52DA54E727FFB94E000E6B41 /* KeychainAccess */,
 			);
 			productName = Her;
 			productReference = 52DA549B27FFAAA1000E6B41 /* Her.app */;
@@ -218,9 +218,9 @@
 			mainGroup = 52DA549227FFAAA0000E6B41;
 			packageReferences = (
 				52DA54D727FFB402000E6B41 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
-				52DA54DA27FFB418000E6B41 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				52DA54DD27FFB44D000E6B41 /* XCRemoteSwiftPackageReference "bottom-sheet" */,
 				52DA54E027FFB481000E6B41 /* XCRemoteSwiftPackageReference "OpenAI" */,
+				52DA54E627FFB94E000E6B41 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = 52DA549C27FFAAA1000E6B41 /* Products */;
 			projectDirPath = "";
@@ -540,14 +540,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		52DA54DA27FFB418000E6B41 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		52DA54DD27FFB44D000E6B41 /* XCRemoteSwiftPackageReference "bottom-sheet" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weitieda/bottom-sheet";
@@ -564,6 +556,14 @@
 				minimumVersion = 0.1.3;
 			};
 		};
+		52DA54E627FFB94E000E6B41 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -571,11 +571,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 52DA54D727FFB402000E6B41 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
-		};
-		52DA54DB27FFB418000E6B41 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 52DA54DA27FFB418000E6B41 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
 		};
 		52DA54DE27FFB44D000E6B41 /* BottomSheet */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -586,6 +581,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 52DA54E027FFB481000E6B41 /* XCRemoteSwiftPackageReference "OpenAI" */;
 			productName = OpenAI;
+		};
+		52DA54E727FFB94E000E6B41 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52DA54E627FFB94E000E6B41 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
