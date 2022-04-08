@@ -10,6 +10,7 @@ import KeychainAccess
 import OpenAI
 import SwiftUI
 import LoremSwiftum
+import CurlDSL
 
 class HerHelper: ObservableObject {
     var keychainKeyIdentifier = "OPENAI_API_KEY"
@@ -17,10 +18,15 @@ class HerHelper: ObservableObject {
     var isUIEnabled: Binding<Bool>?
     
     // MARK: - App Storage
+    @AppStorage("selectedPreset") public var selectedPreset: String = "Q&A"
     @AppStorage("selectedMode") public var selectedMode: String = Mode.complete.rawValue
     @AppStorage("selectedEngine") public var selectedEngine: String = Engine.ID.ada.description
     @AppStorage("maxTokens") public var maxTokens: Double = 100.0
     @AppStorage("numberOfCompletions") public var numberOfCompletions = 1
+    @AppStorage("temperature") public var temperature: Double = 0.0
+    @AppStorage("topP") public var topP: Double = 0.0
+    @AppStorage("frequencyPenalty") public var frequencyPenalty: Double = 0.0
+    @AppStorage("presencePenalty") public var presencePenalty: Double = 0.0
     
     // MARK: - Publishable data
     @Published public var randomString = ""
@@ -120,7 +126,39 @@ class HerHelper: ObservableObject {
             return try await instruct(from: prompt)
         case .filter:
             return try await filter(from: prompt).rawValue
+        case .preset:
+            return try await preset(with: prompt)
         }
+    }
+    
+    func getCURL(for prompt: String) -> String {
+        return """
+            curl https://api.openai.com/v1/engines/\(selectedEngine)/completions \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer \(key ?? "")" \
+              -d '{
+              "prompt": "\(prompt)",
+              "temperature": \(temperature),
+              "max_tokens": \(Int(maxTokens)),
+              "top_p": \(topP),
+              "frequency_penalty": \(frequencyPenalty),
+              "presence_penalty": \(presencePenalty)
+            }'
+            """
+    }
+    
+    func preset(with prompt: String) async throws -> String? {
+        try await validate()
+        
+        let curlString = getCURL(for: prompt)
+        let result = await withCheckedContinuation { continuation in
+            try? CURL(curlString).run { data, _, _ in // (data, response, error)
+                continuation.resume(returning: data)
+            }
+        }
+        
+        guard let data = result, let response = try? OpenAIAPIResponse(data: data) else { return nil }
+        return response.choices.first?.text
     }
     
     func complete(from prompt: String) async throws -> String? {

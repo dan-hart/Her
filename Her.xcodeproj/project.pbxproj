@@ -27,6 +27,10 @@
 		52DA54F527FFD0D8000E6B41 /* LoremSwiftum in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54F427FFD0D8000E6B41 /* LoremSwiftum */; };
 		52DA54F727FFD872000E6B41 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54F627FFD872000E6B41 /* Mode.swift */; };
 		52DA54F927FFDBB2000E6B41 /* ContentLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54F827FFDBB2000E6B41 /* ContentLevel.swift */; };
+		52DA54FC27FFE89B000E6B41 /* CurlDSL in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54FB27FFE89B000E6B41 /* CurlDSL */; };
+		52DA54FE27FFE8A9000E6B41 /* OpenAIAPIPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54FD27FFE8A9000E6B41 /* OpenAIAPIPayload.swift */; };
+		52DA550027FFEB05000E6B41 /* HerPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54FF27FFEB05000E6B41 /* HerPreset.swift */; };
+		52DA550227FFF3C6000E6B41 /* OpenAIAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA550127FFF3C6000E6B41 /* OpenAIAPIResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,9 @@
 		52DA54F127FFC253000E6B41 /* HerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HerError.swift; sourceTree = "<group>"; };
 		52DA54F627FFD872000E6B41 /* Mode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mode.swift; sourceTree = "<group>"; };
 		52DA54F827FFDBB2000E6B41 /* ContentLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentLevel.swift; sourceTree = "<group>"; };
+		52DA54FD27FFE8A9000E6B41 /* OpenAIAPIPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAPIPayload.swift; sourceTree = "<group>"; };
+		52DA54FF27FFEB05000E6B41 /* HerPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerPreset.swift; sourceTree = "<group>"; };
+		52DA550127FFF3C6000E6B41 /* OpenAIAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAPIResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52DA54FC27FFE89B000E6B41 /* CurlDSL in Frameworks */,
 				52DA54E827FFB94E000E6B41 /* KeychainAccess in Frameworks */,
 				52DA54F527FFD0D8000E6B41 /* LoremSwiftum in Frameworks */,
 				52DA54DF27FFB44D000E6B41 /* BottomSheet in Frameworks */,
@@ -165,6 +173,9 @@
 				52DA54F027FFC23D000E6B41 /* Errors */,
 				52DA54F627FFD872000E6B41 /* Mode.swift */,
 				52DA54F827FFDBB2000E6B41 /* ContentLevel.swift */,
+				52DA54FD27FFE8A9000E6B41 /* OpenAIAPIPayload.swift */,
+				52DA54FF27FFEB05000E6B41 /* HerPreset.swift */,
+				52DA550127FFF3C6000E6B41 /* OpenAIAPIResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -199,6 +210,7 @@
 				52DA54E127FFB481000E6B41 /* OpenAI */,
 				52DA54E727FFB94E000E6B41 /* KeychainAccess */,
 				52DA54F427FFD0D8000E6B41 /* LoremSwiftum */,
+				52DA54FB27FFE89B000E6B41 /* CurlDSL */,
 			);
 			productName = Her;
 			productReference = 52DA549B27FFAAA1000E6B41 /* Her.app */;
@@ -256,6 +268,7 @@
 				52DA54E027FFB481000E6B41 /* XCRemoteSwiftPackageReference "OpenAI" */,
 				52DA54E627FFB94E000E6B41 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				52DA54F327FFD0D8000E6B41 /* XCRemoteSwiftPackageReference "LoremSwiftum" */,
+				52DA54FA27FFE89B000E6B41 /* XCRemoteSwiftPackageReference "CurlDSL" */,
 			);
 			productRefGroup = 52DA549C27FFAAA1000E6B41 /* Products */;
 			projectDirPath = "";
@@ -291,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52DA550027FFEB05000E6B41 /* HerPreset.swift in Sources */,
 				52DA54F927FFDBB2000E6B41 /* ContentLevel.swift in Sources */,
 				52DA54CC27FFAD25000E6B41 /* ClipboardHelper.swift in Sources */,
 				52DA54EA27FFC014000E6B41 /* HerHelper.swift in Sources */,
@@ -301,6 +315,8 @@
 				52DA54D627FFAFE5000E6B41 /* Constants.swift in Sources */,
 				52DA54D427FFAFD7000E6B41 /* SupportThisAppView.swift in Sources */,
 				52DA54F227FFC253000E6B41 /* HerError.swift in Sources */,
+				52DA550227FFF3C6000E6B41 /* OpenAIAPIResponse.swift in Sources */,
+				52DA54FE27FFE8A9000E6B41 /* OpenAIAPIPayload.swift in Sources */,
 				52DA54F727FFD872000E6B41 /* Mode.swift in Sources */,
 				52DA549F27FFAAA1000E6B41 /* HerApp.swift in Sources */,
 			);
@@ -612,6 +628,14 @@
 				minimumVersion = 2.2.1;
 			};
 		};
+		52DA54FA27FFE89B000E6B41 /* XCRemoteSwiftPackageReference "CurlDSL" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/zonble/CurlDSL";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -639,6 +663,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 52DA54F327FFD0D8000E6B41 /* XCRemoteSwiftPackageReference "LoremSwiftum" */;
 			productName = LoremSwiftum;
+		};
+		52DA54FB27FFE89B000E6B41 /* CurlDSL */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52DA54FA27FFE89B000E6B41 /* XCRemoteSwiftPackageReference "CurlDSL" */;
+			productName = CurlDSL;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

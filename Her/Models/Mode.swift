@@ -13,4 +13,5 @@ enum Mode: String, CaseIterable {
     case codex
     case instruct
     case filter
+    case preset
 }

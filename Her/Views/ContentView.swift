@@ -13,20 +13,24 @@ import OpenAI
 struct ContentView: View {
     @EnvironmentObject var herHelper: HerHelper
     
+    @AppStorage("responseAsSheet") var showResponseAsSheet: Bool = false
     @AppStorage("input") var input: String = ""
     @State var output: String = "Waiting for human to enter a Prompt"
     
     @State var isShowingSupportThisAppView = false
     @State var isShowingBottomSheet = false
+    @State var isShowingResponseAsSheet = false
     
     @Binding var isUIEnabled: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
-            HerTextView(label: "Response", color: Constants.Colors.secondary, text: $output, isUIEnabled: $isUIEnabled)
-            Spacer()
+            if !showResponseAsSheet {
+                HerTextView(label: "Response", color: Constants.Colors.secondary, text: $output, isUIEnabled: $isUIEnabled)
+                Spacer()
+            }
             HerTextView(label: "Prompt", color: .accentColor, text: $input, isUIEnabled: $isUIEnabled)
-            CommandView(isShowingBottomSheet: $isShowingBottomSheet, isUIEnabled: $isUIEnabled, input: $input, output: $output)
+            CommandView(isShowingBottomSheet: $isShowingBottomSheet, isShowingResponseSheet: $isShowingResponseAsSheet, isUIEnabled: $isUIEnabled, input: $input, output: $output)
                 .padding()
         }
         .redacted(reason: isUIEnabled ? [] : .placeholder)
@@ -43,6 +47,20 @@ struct ContentView: View {
                 SupportThisAppView(showCancelButton: true)
             }
         }
+        .sheet(isPresented: $isShowingResponseAsSheet) {
+            VStack {
+                HerTextView(label: "Response", color: Constants.Colors.secondary, text: $output, isUIEnabled: $isUIEnabled)
+                Button {
+                    isShowingResponseAsSheet = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(Constants.Colors.secondary)
+                }
+                .padding()
+            }
+            .padding()
+            
+        }
     }
 }
 
@@ -50,11 +68,32 @@ struct BottomView: View {
     @EnvironmentObject var herHelper: HerHelper
     @Binding var isUIEnabled: Bool
     
+    @AppStorage("responseAsSheet") var isShowingResponseAsSheet = false
+    
     var body: some View {
         Form {
             if !herHelper.isAuthenticated {
                 AuthenticationView()
             } else {
+                Section {
+                    Picker("Presets", selection: $herHelper.selectedPreset) {
+                        ForEach(Constants.Presets.all, id: \.name) { preset in
+                            Text("\(preset.name)")
+                                .tag(preset.name)
+                        }
+                    }
+                    .labelsHidden()
+                } header: {
+                    Text("Presets")
+                }
+                
+                Section {
+                    Toggle(isOn: $isShowingResponseAsSheet) {
+                        Text("Is Showing Response in Sheet")
+                    }
+                    .tint(.accentColor)
+                }
+                
                 Section {
                     Picker("Modes", selection: $herHelper.selectedMode) {
                         ForEach($herHelper.selectableModes, id: \.self) { mode in
@@ -62,22 +101,19 @@ struct BottomView: View {
                                 .tag(mode.wrappedValue.rawValue)
                         }
                     }
-                    .pickerStyle(.segmented)
                     .labelsHidden()
                 } header: {
                     Text("Mode")
                 }
                 
                 Section {
-                    Slider(value: $herHelper.maxTokens, in: 100...500)
+                    Slider(value: $herHelper.maxTokens, in: 1...2000)
                         .padding()
                 } header: {
                     Text("Maximum Response Word Count: \(Int(herHelper.maxTokens))")
                 }
                 
-                
                 Section {
-                    
                     Picker("Engines", selection: $herHelper.selectedEngine) {
                         ForEach(herHelper.engines, id: \.id) { engine in
                             Text("\(engine.id.description)")
@@ -92,6 +128,15 @@ struct BottomView: View {
                 // End Bottom View Else
             }
         }
+        .onChange(of: herHelper.selectedPreset, perform: { presetName in
+            guard let preset = Constants.Presets.get(byName: presetName) else { return }
+            herHelper.selectedEngine = preset.engine
+            herHelper.temperature = preset.temperature
+            herHelper.maxTokens = preset.maxTokens
+            herHelper.topP = preset.topP
+            herHelper.frequencyPenalty = preset.frequencyPenalty
+            herHelper.presencePenalty = preset.presencePenalty
+        })
         .padding()
         
         .navigationTitle("Settings")
@@ -101,6 +146,7 @@ struct BottomView: View {
 struct CommandView: View {
     @EnvironmentObject var herHelper: HerHelper
     @Binding var isShowingBottomSheet: Bool
+    @Binding var isShowingResponseSheet: Bool
     @Binding var isUIEnabled: Bool
     
     @Binding var input: String
@@ -132,8 +178,8 @@ struct CommandView: View {
             self.isUIEnabled = false
             self.output = "Thinking..."
             do {
-                let value = try await herHelper.operate(using: Mode(rawValue: herHelper.selectedMode) ?? .complete, from: input) ?? "No Response"
-                output = input + value
+                output = try await herHelper.operate(using: Mode(rawValue: herHelper.selectedMode) ?? .complete, from: input) ?? "No Response"
+                isShowingResponseSheet = true
             } catch(let error) {
                 output = "I’m sorry Dave, I’m afraid I can’t do that.\n\n\(error.localizedDescription)"
             }
