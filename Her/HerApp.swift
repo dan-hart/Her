@@ -9,9 +9,23 @@ import SwiftUI
 
 @main
 struct HerApp: App {
+    @StateObject var herHelper = HerHelper()
+    @State var isUIEnabled = true
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(isUIEnabled: $isUIEnabled)
+                .environmentObject(herHelper)
+                .alert(isPresented: $herHelper.isShowingAlert) {
+                    herHelper.alert ?? Alert(title: Text(""))
+                }
+                .onAppear {
+                    herHelper.callTask {
+                        self.isUIEnabled = false
+                        try await herHelper.startSession(with: herHelper.key)
+                        self.isUIEnabled = true
+                    }
+                }
         }
     }
 }

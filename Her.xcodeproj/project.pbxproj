@@ -21,6 +21,10 @@
 		52DA54DF27FFB44D000E6B41 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54DE27FFB44D000E6B41 /* BottomSheet */; };
 		52DA54E227FFB481000E6B41 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54E127FFB481000E6B41 /* OpenAI */; };
 		52DA54E827FFB94E000E6B41 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54E727FFB94E000E6B41 /* KeychainAccess */; };
+		52DA54EA27FFC014000E6B41 /* HerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54E927FFC014000E6B41 /* HerHelper.swift */; };
+		52DA54EC27FFC096000E6B41 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54EB27FFC096000E6B41 /* AuthenticationView.swift */; };
+		52DA54F227FFC253000E6B41 /* HerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA54F127FFC253000E6B41 /* HerError.swift */; };
+		52DA54F527FFD0D8000E6B41 /* LoremSwiftum in Frameworks */ = {isa = PBXBuildFile; productRef = 52DA54F427FFD0D8000E6B41 /* LoremSwiftum */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +50,9 @@
 		52DA54D127FFAE84000E6B41 /* WebLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebLauncher.swift; sourceTree = "<group>"; };
 		52DA54D327FFAFD7000E6B41 /* SupportThisAppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportThisAppView.swift; sourceTree = "<group>"; };
 		52DA54D527FFAFE5000E6B41 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		52DA54E927FFC014000E6B41 /* HerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerHelper.swift; sourceTree = "<group>"; };
+		52DA54EB27FFC096000E6B41 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		52DA54F127FFC253000E6B41 /* HerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HerError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52DA54E827FFB94E000E6B41 /* KeychainAccess in Frameworks */,
+				52DA54F527FFD0D8000E6B41 /* LoremSwiftum in Frameworks */,
 				52DA54DF27FFB44D000E6B41 /* BottomSheet in Frameworks */,
 				52DA54E227FFB481000E6B41 /* OpenAI in Frameworks */,
 				52DA54D927FFB402000E6B41 /* SFSafeSymbols in Frameworks */,
@@ -91,6 +99,7 @@
 		52DA549D27FFAAA1000E6B41 /* Her */ = {
 			isa = PBXGroup;
 			children = (
+				52DA54ED27FFC226000E6B41 /* Models */,
 				52DA54D527FFAFE5000E6B41 /* Constants.swift */,
 				52DA54D027FFADAC000E6B41 /* Views */,
 				52DA54CF27FFAD81000E6B41 /* Helpers */,
@@ -131,6 +140,7 @@
 			children = (
 				52DA54D127FFAE84000E6B41 /* WebLauncher.swift */,
 				52DA54CB27FFAD25000E6B41 /* ClipboardHelper.swift */,
+				52DA54E927FFC014000E6B41 /* HerHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -140,8 +150,25 @@
 			children = (
 				52DA54D327FFAFD7000E6B41 /* SupportThisAppView.swift */,
 				52DA54A027FFAAA1000E6B41 /* ContentView.swift */,
+				52DA54EB27FFC096000E6B41 /* AuthenticationView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		52DA54ED27FFC226000E6B41 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				52DA54F027FFC23D000E6B41 /* Errors */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		52DA54F027FFC23D000E6B41 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				52DA54F127FFC253000E6B41 /* HerError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +192,7 @@
 				52DA54DE27FFB44D000E6B41 /* BottomSheet */,
 				52DA54E127FFB481000E6B41 /* OpenAI */,
 				52DA54E727FFB94E000E6B41 /* KeychainAccess */,
+				52DA54F427FFD0D8000E6B41 /* LoremSwiftum */,
 			);
 			productName = Her;
 			productReference = 52DA549B27FFAAA1000E6B41 /* Her.app */;
@@ -221,6 +249,7 @@
 				52DA54DD27FFB44D000E6B41 /* XCRemoteSwiftPackageReference "bottom-sheet" */,
 				52DA54E027FFB481000E6B41 /* XCRemoteSwiftPackageReference "OpenAI" */,
 				52DA54E627FFB94E000E6B41 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				52DA54F327FFD0D8000E6B41 /* XCRemoteSwiftPackageReference "LoremSwiftum" */,
 			);
 			productRefGroup = 52DA549C27FFAAA1000E6B41 /* Products */;
 			projectDirPath = "";
@@ -257,11 +286,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				52DA54CC27FFAD25000E6B41 /* ClipboardHelper.swift in Sources */,
+				52DA54EA27FFC014000E6B41 /* HerHelper.swift in Sources */,
 				52DA54CA27FFACFA000E6B41 /* Collections+ifExistsAt.swift in Sources */,
 				52DA54D227FFAE84000E6B41 /* WebLauncher.swift in Sources */,
 				52DA54A127FFAAA1000E6B41 /* ContentView.swift in Sources */,
+				52DA54EC27FFC096000E6B41 /* AuthenticationView.swift in Sources */,
 				52DA54D627FFAFE5000E6B41 /* Constants.swift in Sources */,
 				52DA54D427FFAFD7000E6B41 /* SupportThisAppView.swift in Sources */,
+				52DA54F227FFC253000E6B41 /* HerError.swift in Sources */,
 				52DA549F27FFAAA1000E6B41 /* HerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +596,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		52DA54F327FFD0D8000E6B41 /* XCRemoteSwiftPackageReference "LoremSwiftum" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lukaskubanek/LoremSwiftum";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -586,6 +626,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 52DA54E627FFB94E000E6B41 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		52DA54F427FFD0D8000E6B41 /* LoremSwiftum */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52DA54F327FFD0D8000E6B41 /* XCRemoteSwiftPackageReference "LoremSwiftum" */;
+			productName = LoremSwiftum;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

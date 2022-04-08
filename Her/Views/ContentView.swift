@@ -7,24 +7,72 @@
 
 import SwiftUI
 import SFSafeSymbols
+import BottomSheet
+import OpenAI
 
 struct ContentView: View {
+    @EnvironmentObject var herHelper: HerHelper
+    
     @State var input: String = ""
     @State var output: String = ""
     
+    @State var isShowingSupportThisAppView = false
+    @State var isShowingBottomSheet = false
+    
+    @Binding var isUIEnabled: Bool
+    
     var body: some View {
         VStack(alignment: .leading) {
-            HerTextView(label: "Input", color: .accentColor, text: $input)
+            HerTextView(label: "Response", color: Constants.Colors.secondary, text: $output, isUIEnabled: $isUIEnabled)
             Spacer()
-            HerTextView(label: "Output", color: Constants.Colors.secondary, text: $output)
-            // --
-            CommandView()
+            HerTextView(label: "Prompt", color: .accentColor, text: $input, isUIEnabled: $isUIEnabled)
+            CommandView(isShowingBottomSheet: $isShowingBottomSheet, isUIEnabled: $isUIEnabled, input: $input, output: $output)
                 .padding()
-            // --
         }
-        .sheet(isPresented: .constant(false)) {
+        .redacted(reason: isUIEnabled ? [] : .placeholder)
+        .padding()
+        .bottomSheet(isPresented: $isShowingBottomSheet, height: UIScreen.main.bounds.height / 2) {
+            BottomView(isUIEnabled: $isUIEnabled)
+        }
+        .sheet(isPresented: $isShowingSupportThisAppView) {
             NavigationView {
                 SupportThisAppView(showCancelButton: true)
+            }
+        }
+    }
+}
+
+struct BottomView: View {
+    @EnvironmentObject var herHelper: HerHelper
+    @Binding var isUIEnabled: Bool
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            if !herHelper.isAuthenticated {
+                AuthenticationView()
+            } else {
+                Text("Settings")
+                    .font(.headline)
+                
+                Section {
+                    Stepper("Maximum Response Word Count: \(herHelper.maxTokens)", value: $herHelper.maxTokens, in: 100 ... 9999)
+                        .padding()
+                }
+                
+                Section {
+                    Picker("Engines", selection: $herHelper.selectedEngine) {
+                        ForEach($herHelper.selectableEngines, id: \.self) { engine in
+                            Text("\(engine.wrappedValue.description)")
+                                .tag(engine.wrappedValue.description)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .labelsHidden()
+                } header: {
+                    Text("Engine")
+                }
+
+                // End Bottom View Else
             }
         }
         .padding()
@@ -32,10 +80,17 @@ struct ContentView: View {
 }
 
 struct CommandView: View {
+    @EnvironmentObject var herHelper: HerHelper
+    @Binding var isShowingBottomSheet: Bool
+    @Binding var isUIEnabled: Bool
+    
+    @Binding var input: String
+    @Binding var output: String
+    
     var body: some View {
         HStack {
             Button {
-                // Process
+                process()
             } label: {
                 HStack {
                     Image(systemSymbol: ._42CircleFill)
@@ -45,11 +100,19 @@ struct CommandView: View {
             }
             Spacer()
             Button {
-                // Settings
+                isShowingBottomSheet = true
             } label: {
                 Image(systemSymbol: .gearshapeFill)
             }
             
+        }
+    }
+    
+    func process() {
+        herHelper.callTask {
+            self.isUIEnabled = false
+            output = try await herHelper.complete(from: input) ?? "No Response"
+            self.isUIEnabled = true
         }
     }
 }
@@ -59,6 +122,7 @@ struct HerTextView: View {
     var color: Color
     
     @Binding var text: String
+    @Binding var isUIEnabled: Bool
     
     var body: some View {
         HStack {
@@ -85,7 +149,7 @@ struct HerTextView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(isUIEnabled: .constant(true))
             .preferredColorScheme(.dark)
     }
 }
