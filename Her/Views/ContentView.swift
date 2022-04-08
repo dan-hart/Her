@@ -37,21 +37,16 @@ struct ContentView: View {
         .padding()
         .bottomSheet(isPresented: $isShowingBottomSheet, height: UIScreen.main.bounds.height * 0.75) {
             NavigationView {
-                if Constants.isMacOrPad() {
-                    EmptyView()
-                }
                 BottomView(isUIEnabled: $isUIEnabled)
                     .navigationBarTitleDisplayMode(.inline)
             }
-            
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         .sheet(isPresented: $isShowingSupportThisAppView) {
             NavigationView {
-                if Constants.isMacOrPad() {
-                    EmptyView()
-                }
                 SupportThisAppView(showCancelButton: true)
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         .sheet(isPresented: $isShowingResponseAsSheet) {
             VStack {
@@ -66,7 +61,6 @@ struct ContentView: View {
                 .padding()
             }
             .padding()
-            
         }
     }
 }
@@ -172,8 +166,8 @@ struct CommandView: View {
             }
             Spacer()
             Button {
-                UIApplication.shared.endEditing()
                 isShowingBottomSheet = true
+                UIApplication.shared.endEditing()
             } label: {
                 Image(systemSymbol: .gearshapeFill)
             }
