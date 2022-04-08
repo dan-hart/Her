@@ -64,6 +64,7 @@
 		52DA54FD27FFE8A9000E6B41 /* OpenAIAPIPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAPIPayload.swift; sourceTree = "<group>"; };
 		52DA54FF27FFEB05000E6B41 /* HerPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerPreset.swift; sourceTree = "<group>"; };
 		52DA550127FFF3C6000E6B41 /* OpenAIAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAPIResponse.swift; sourceTree = "<group>"; };
+		52DA550327FFFFD3000E6B41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +112,7 @@
 		52DA549D27FFAAA1000E6B41 /* Her */ = {
 			isa = PBXGroup;
 			children = (
+				52DA550327FFFFD3000E6B41 /* Info.plist */,
 				52DA54ED27FFC226000E6B41 /* Models */,
 				52DA54D527FFAFE5000E6B41 /* Constants.swift */,
 				52DA54D027FFADAC000E6B41 /* Views */,
@@ -466,6 +468,7 @@
 				DEVELOPMENT_TEAM = WRJ8J85K4Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Her/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -496,6 +499,7 @@
 				DEVELOPMENT_TEAM = WRJ8J85K4Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Her/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
