@@ -37,6 +37,9 @@ struct ContentView: View {
         .padding()
         .bottomSheet(isPresented: $isShowingBottomSheet, height: UIScreen.main.bounds.height * 0.75) {
             NavigationView {
+                if Constants.isMacOrPad() {
+                    EmptyView()
+                }
                 BottomView(isUIEnabled: $isUIEnabled)
                     .navigationBarTitleDisplayMode(.inline)
             }
@@ -44,6 +47,9 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isShowingSupportThisAppView) {
             NavigationView {
+                if Constants.isMacOrPad() {
+                    EmptyView()
+                }
                 SupportThisAppView(showCancelButton: true)
             }
         }
