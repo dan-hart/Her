@@ -13,7 +13,7 @@ import OpenAI
 struct ContentView: View {
     @EnvironmentObject var herHelper: HerHelper
     
-    @State var input: String = ""
+    @AppStorage("input") var input: String = ""
     @State var output: String = ""
     
     @State var isShowingSupportThisAppView = false
@@ -47,35 +47,39 @@ struct BottomView: View {
     @Binding var isUIEnabled: Bool
     
     var body: some View {
-        VStack(alignment: .leading) {
-            if !herHelper.isAuthenticated {
-                AuthenticationView()
-            } else {
-                Text("Settings")
-                    .font(.headline)
-                
-                Section {
-                    Stepper("Maximum Response Word Count: \(herHelper.maxTokens)", value: $herHelper.maxTokens, in: 100 ... 9999)
-                        .padding()
-                }
-                
-                Section {
-                    Picker("Engines", selection: $herHelper.selectedEngine) {
-                        ForEach($herHelper.selectableEngines, id: \.self) { engine in
-                            Text("\(engine.wrappedValue.description)")
-                                .tag(engine.wrappedValue.description)
-                        }
+        ScrollView {
+            VStack(alignment: .leading) {
+                if !herHelper.isAuthenticated {
+                    AuthenticationView()
+                } else {
+                    Text("Settings")
+                        .font(.headline)
+                    
+                    Section {
+                        Slider(value: $herHelper.maxTokens, in: 100...500)
+                            .padding()
+                    } header: {
+                        Text("Maximum Response Word Count: \(Int(herHelper.maxTokens))")
                     }
-                    .pickerStyle(.segmented)
-                    .labelsHidden()
-                } header: {
-                    Text("Engine")
+                    
+                    Section {
+                        Picker("Engines", selection: $herHelper.selectedEngine) {
+                            ForEach($herHelper.selectableEngines, id: \.self) { engine in
+                                Text("\(engine.wrappedValue.description)")
+                                    .tag(engine.wrappedValue.description)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .labelsHidden()
+                    } header: {
+                        Text("Engine")
+                    }
+                    
+                    // End Bottom View Else
                 }
-
-                // End Bottom View Else
             }
+            .padding()
         }
-        .padding()
     }
 }
 
@@ -111,7 +115,8 @@ struct CommandView: View {
     func process() {
         herHelper.callTask {
             self.isUIEnabled = false
-            output = try await herHelper.complete(from: input) ?? "No Response"
+            self.output = "Thinking..."
+            self.output = try await herHelper.complete(from: input) ?? "No Response"
             self.isUIEnabled = true
         }
     }
@@ -130,6 +135,14 @@ struct HerTextView: View {
                 .foregroundColor(color)
                 .font(.system(.headline, design: .monospaced))
             Spacer()
+            Button {
+                ClipboardHelper.set(text: text)
+            } label: {
+                HStack {
+                    Image(systemSymbol: SFSymbol.docOnDoc)
+                        .foregroundColor(color)
+                }
+            }
             Button {
                 text = ""
             } label: {

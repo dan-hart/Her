@@ -16,7 +16,7 @@ class HerHelper: ObservableObject {
     
     // MARK: - App Storage
     @AppStorage("selectedEngine") public var selectedEngine: String = Engine.ID.ada.description
-    @AppStorage("maxTokens") public var maxTokens = 500
+    @AppStorage("maxTokens") public var maxTokens: Double = 100.0
     @AppStorage("numberOfCompletions") public var numberOfCompletions = 1
     
     // MARK: - Publishable data
@@ -111,7 +111,7 @@ class HerHelper: ObservableObject {
         let result = await withCheckedContinuation { continuation in
             client?.completions(engine: Engine.ID(selectedEngine),
                                prompt: prompt,
-                               numberOfTokens: ...maxTokens,
+                               numberOfTokens: ...Int(maxTokens),
                                numberOfCompletions: numberOfCompletions) { result in
                 continuation.resume(returning: result)
             }
@@ -122,25 +122,6 @@ class HerHelper: ObservableObject {
             return completions.first?.choices.first?.text
         case let .failure(error):
             throw error
-        }
-    }
-    
-    // MARK: - Random Words
-    var isRandomizingString = false {
-        didSet {
-            if isRandomizingString {
-                randomizeString()
-            } else {
-                randomString = ""
-            }
-        }
-    }
-    
-    func randomizeString() {
-        Task.detached {
-            while self.isRandomizingString {
-                self.randomString = Lorem.words(self.maxTokens)
-            }
         }
     }
     
@@ -167,9 +148,7 @@ class HerHelper: ObservableObject {
 
     func callTask(thisAsyncThrowingCode: @escaping () async throws -> Void) {
         Task {
-            self.isRandomizingString = true
             await call(thisAsyncThrowingCode: thisAsyncThrowingCode)
-            self.isRandomizingString = false
         }
     }
 }
