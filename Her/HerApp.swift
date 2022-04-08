@@ -20,6 +20,7 @@ struct HerApp: App {
                     herHelper.alert ?? Alert(title: Text(""))
                 }
                 .onAppear {
+                    herHelper.isUIEnabled = $isUIEnabled
                     herHelper.callTask {
                         self.isUIEnabled = false
                         try await herHelper.startSession(with: herHelper.key)

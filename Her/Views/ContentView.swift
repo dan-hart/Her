@@ -14,7 +14,7 @@ struct ContentView: View {
     @EnvironmentObject var herHelper: HerHelper
     
     @AppStorage("input") var input: String = ""
-    @State var output: String = ""
+    @State var output: String = "Waiting for human to enter a Prompt"
     
     @State var isShowingSupportThisAppView = false
     @State var isShowingBottomSheet = false
@@ -31,8 +31,12 @@ struct ContentView: View {
         }
         .redacted(reason: isUIEnabled ? [] : .placeholder)
         .padding()
-        .bottomSheet(isPresented: $isShowingBottomSheet, height: UIScreen.main.bounds.height / 2) {
-            BottomView(isUIEnabled: $isUIEnabled)
+        .bottomSheet(isPresented: $isShowingBottomSheet, height: UIScreen.main.bounds.height * 0.75) {
+            NavigationView {
+                BottomView(isUIEnabled: $isUIEnabled)
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            
         }
         .sheet(isPresented: $isShowingSupportThisAppView) {
             NavigationView {
@@ -47,39 +51,50 @@ struct BottomView: View {
     @Binding var isUIEnabled: Bool
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                if !herHelper.isAuthenticated {
-                    AuthenticationView()
-                } else {
-                    Text("Settings")
-                        .font(.headline)
-                    
-                    Section {
-                        Slider(value: $herHelper.maxTokens, in: 100...500)
-                            .padding()
-                    } header: {
-                        Text("Maximum Response Word Count: \(Int(herHelper.maxTokens))")
-                    }
-                    
-                    Section {
-                        Picker("Engines", selection: $herHelper.selectedEngine) {
-                            ForEach($herHelper.selectableEngines, id: \.self) { engine in
-                                Text("\(engine.wrappedValue.description)")
-                                    .tag(engine.wrappedValue.description)
-                            }
+        Form {
+            if !herHelper.isAuthenticated {
+                AuthenticationView()
+            } else {
+                Section {
+                    Picker("Modes", selection: $herHelper.selectedMode) {
+                        ForEach($herHelper.selectableModes, id: \.self) { mode in
+                            Text("\(mode.wrappedValue.rawValue)")
+                                .tag(mode.wrappedValue.rawValue)
                         }
-                        .pickerStyle(.segmented)
-                        .labelsHidden()
-                    } header: {
-                        Text("Engine")
                     }
-                    
-                    // End Bottom View Else
+                    .pickerStyle(.segmented)
+                    .labelsHidden()
+                } header: {
+                    Text("Mode")
                 }
+                
+                Section {
+                    Slider(value: $herHelper.maxTokens, in: 100...500)
+                        .padding()
+                } header: {
+                    Text("Maximum Response Word Count: \(Int(herHelper.maxTokens))")
+                }
+                
+                
+                Section {
+                    
+                    Picker("Engines", selection: $herHelper.selectedEngine) {
+                        ForEach(herHelper.engines, id: \.id) { engine in
+                            Text("\(engine.id.description)")
+                                .tag(engine.id.description)
+                        }
+                    }
+                    .labelsHidden()
+                    
+                } header: {
+                    Text("Engine")
+                }
+                // End Bottom View Else
             }
-            .padding()
         }
+        .padding()
+        
+        .navigationTitle("Settings")
     }
 }
 
@@ -116,7 +131,12 @@ struct CommandView: View {
         herHelper.callTask {
             self.isUIEnabled = false
             self.output = "Thinking..."
-            self.output = try await herHelper.complete(from: input) ?? "No Response"
+            do {
+                let value = try await herHelper.operate(using: Mode(rawValue: herHelper.selectedMode) ?? .complete, from: input) ?? "No Response"
+                output = input + value
+            } catch(let error) {
+                output = "I’m sorry Dave, I’m afraid I can’t do that.\n\n\(error.localizedDescription)"
+            }
             self.isUIEnabled = true
         }
     }
